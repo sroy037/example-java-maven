@@ -8,7 +8,13 @@ veracode_static_scan:
   break_build_on_error: false
   # Default policy to be used if a policy isn't already assigned to the application profile.
   policy: 'Veracode Recommended Low + SCA'
-  profile: "Github-Workflow-Test-example-java"
+  profile: "Github-Workflow-Test-example-java-1"
+  # If the trigger is set to true, a scan is triggered when you create an issue containing the commands value or add a comment containing the commands value to an issue.
+  # Syntax to be used - COMMANDS_VALUE [branch: BRANCH_NAME]
+  issues:
+    trigger: true
+    commands:
+      - "Repo Static Scan"
 
 veracode_sca_scan:
   # If break_build_policy_findings is set to true, the build will break when findings violate the policy.
