@@ -57,5 +57,5 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: veracode-artifact
-        path: "source-code/target/*"
+        path: "source-code/target/*war"
         if-no-files-found: error
