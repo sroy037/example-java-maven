@@ -1,3 +1,5 @@
+default:
+  runs_on:self-hosted
 veracode_static_scan:
   use_custom_workflow: test-custom-build
   artifact_file: veracode-artifact
