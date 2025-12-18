@@ -34,7 +34,7 @@ jobs:
         -action uploadandscan \
         -appname "TEST_REPOURL" \
         -createprofile true \
-        -filepath "$ARTIFACT_PATH" \
+        -filepath ./target/*.jar \
         -version "github-run-${GITHUB_RUN_NUMBER}" \
         -repourl "$REPO_URL" \
         -debug true
