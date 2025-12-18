@@ -32,7 +32,7 @@ jobs:
         -vid "${VERACODE_API_ID}" \
         -vkey "${VERACODE_API_KEY}" \
         -action uploadandscan \
-        -appname "TEST_REPOURL" \
+        -appname "Verademo" \
         -createprofile true \
         -filepath ./target/*.jar \
         -version "github-run-${GITHUB_RUN_NUMBER}" \
