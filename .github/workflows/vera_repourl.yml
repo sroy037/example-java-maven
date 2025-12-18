@@ -1,0 +1,43 @@
+name: Veracode Test Run with maven
+
+on: push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+
+    - name: Run Upload and Scan
+      run: |
+        VERACODE_WRAPPER_VERSION=$(curl -sS "https://search.maven.org/solrsearch/select?q=g:%22com.veracode.vosp.api.wrappers%22&rows=20&wt=json" | jq -r '.response.docs[0].latestVersion')
+        curl -sS -o veracode-wrapper.jar "https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/${VERACODE_WRAPPER_VERSION}/vosp-api-wrappers-java-${VERACODE_WRAPPER_VERSION}.jar"
+
+        # Build repo URL
+        REPO_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
+        echo "$REPO_URL"
+
+        # Run the wrapper
+        java -jar VeracodeJavaAPI.jar \
+        -vid "${VERACODE_API_ID}" \
+        -vkey "${VERACODE_API_KEY}" \
+        -action uploadandscan \
+        -appname "TEST_REPOURL" \
+        -createprofile true \
+        -filepath "$ARTIFACT_PATH" \
+        -version "github-run-${GITHUB_RUN_NUMBER}" \
+        -repourl "$REPO_URL" \
+        -debug true
+      env:
+        VERACODE_API_ID: '3944e8d64bc6aaf0284d1d35a222fba7'
+        VERACODE_API_KEY: 'ab23c3705e7f3e53667abe35d7a8b2def6c788a38ef9e21137e4dfbb1686765bd03326d231dfb45df6450b78bc967967011307f59c41b3e1ce53a7e62611b701'
