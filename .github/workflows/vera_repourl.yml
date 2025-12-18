@@ -28,7 +28,7 @@ jobs:
         echo "$REPO_URL"
 
         # Run the wrapper
-        java -jar VeracodeJavaAPI.jar \
+        java -jar veracode-wrapper.jar \
         -vid "${VERACODE_API_ID}" \
         -vkey "${VERACODE_API_KEY}" \
         -action uploadandscan \
