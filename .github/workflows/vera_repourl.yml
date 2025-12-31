@@ -16,7 +16,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: echo "build" #mvn -B package --file pom.xml
+      run: mvn -B package --file pom.xml
 
     - name: Run Upload and Scan
       run: |
@@ -31,8 +31,11 @@ jobs:
         java -jar veracode-wrapper.jar \
         -vid "${VERACODE_API_ID}" \
         -vkey "${VERACODE_API_KEY}" \
-        -action updateapp \
-        -appid 2216068 \
+        -action uploadandscan \
+        -appname "Verademo" \
+        -createprofile true \
+        -filepath ./target/*.jar \
+        -version "github-run-${GITHUB_RUN_NUMBER}" \
         -repourl "$REPO_URL" \
         -debug true
       env:
