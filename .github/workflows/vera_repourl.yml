@@ -20,7 +20,7 @@ jobs:
 
     - name: Run Upload and Scan
       run: |
-        VERACODE_WRAPPER_VERSION=$(curl -sS "https://search.maven.org/solrsearch/select?q=g:%22com.veracode.vosp.api.wrappers%22&rows=20&wt=json" | jq -r '.response.docs[0].latestVersion')
+        VERACODE_WRAPPER_VERSION="25.11.17.0"
         curl -sS -o veracode-wrapper.jar "https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/${VERACODE_WRAPPER_VERSION}/vosp-api-wrappers-java-${VERACODE_WRAPPER_VERSION}.jar"
 
         # Build repo URL
