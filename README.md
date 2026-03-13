@@ -1,4 +1,5 @@
 ## [:] Example Maven Project ###
+# Test for Workflow Session
 
 An example maven project to demonstrate [srcclr](https://www.srcclr.com) scans.
 
